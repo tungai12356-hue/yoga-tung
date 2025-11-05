@@ -1,0 +1,24 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Netlify Identity and Git Gateway for Decap CMS
+[[plugins]]
+  package = "netlify-plugin-submit-sitemap"
+
+  [plugins.inputs]
+    baseUrl = "https://your-site-url.netlify.app"
+    sitemapPath = "/sitemap-index.xml"
+    providers = [
+      "google",
+      "yandex"
+    ]

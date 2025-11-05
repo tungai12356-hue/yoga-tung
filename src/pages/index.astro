@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Button } from '../components/ui/button';
+---
+
+<Layout title="Yoga Tung - Personal Website">
+  <main class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="container mx-auto px-4 py-20">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Yoga Tung
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8">
+          Personal Website & Portfolio
+        </p>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+          Welcome to my personal space on the web. Built with modern technologies including Astro 5, React 18, shadcn/ui, Magic UI, and managed with Decap CMS.
+        </p>
+        <div class="flex gap-4 justify-center flex-wrap">
+          <Button client:load variant="default" size="lg">
+            <a href="/blog">View Blog</a>
+          </Button>
+          <Button client:load variant="outline" size="lg">
+            <a href="#about">Learn More</a>
+          </Button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container mx-auto px-4 py-16">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-6">Tech Stack</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="border rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold mb-2">Astro 5.x</h3>
+            <p class="text-gray-600 dark:text-gray-400">Modern static site generator with best-in-class performance</p>
+          </div>
+          <div class="border rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold mb-2">React 18</h3>
+            <p class="text-gray-600 dark:text-gray-400">Interactive UI components with the latest React features</p>
+          </div>
+          <div class="border rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold mb-2">shadcn/ui</h3>
+            <p class="text-gray-600 dark:text-gray-400">Beautiful, accessible component library built with Radix UI</p>
+          </div>
+          <div class="border rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold mb-2">Magic UI</h3>
+            <p class="text-gray-600 dark:text-gray-400">Animated components for enhanced user experience</p>
+          </div>
+          <div class="border rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold mb-2">Decap CMS</h3>
+            <p class="text-gray-600 dark:text-gray-400">Git-based content management for easy updates</p>
+          </div>
+          <div class="border rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold mb-2">Netlify</h3>
+            <p class="text-gray-600 dark:text-gray-400">Fast, reliable hosting with CI/CD integration</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
