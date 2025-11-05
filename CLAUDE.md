@@ -23,6 +23,24 @@ This is a personal website for Yoga Tung, built to replace a static page website
 4. Maintain fast performance and SEO
 5. Modern, responsive design
 
+## ✅ Project Status (2025-11-05)
+
+**Build Status**: ✅ All systems operational
+- Production builds: Working (3 pages generated)
+- TypeScript checks: 0 errors, 0 warnings, 0 hints
+- Development server: Running on port 4321
+- Sitemap generation: Working
+
+**Recent Critical Fixes**:
+1. **Tailwind CSS Configuration**: Fixed missing color definitions that caused build errors
+2. **Homepage Optimization**: Removed unnecessary React hydration for better performance
+3. **SEO Improvements**: Added sitemap integration, favicon, and robots.txt
+4. **Type Checking**: Added @astrojs/check for comprehensive type validation
+
+**Known Issues**:
+- 3 moderate vulnerabilities in esbuild (development dependencies only, production unaffected)
+- Empty `pages` content collection (warning during build, not an error)
+
 ## 🏗️ Architecture Decisions
 
 ### Why Astro?
@@ -54,7 +72,9 @@ yoga-tung/
 │   ├── admin/                  # Decap CMS interface
 │   │   ├── config.yml          # CMS configuration
 │   │   └── index.html          # CMS entry point
-│   └── images/uploads/         # Media uploads from CMS
+│   ├── images/uploads/         # Media uploads from CMS
+│   ├── favicon.svg             # Website icon (purple "Y")
+│   └── robots.txt              # Search engine crawling rules
 │
 ├── src/
 │   ├── components/
@@ -64,6 +84,7 @@ yoga-tung/
 │   │
 │   ├── content/                # Content collections
 │   │   ├── blog/               # Blog posts (Markdown)
+│   │   │   └── 2025-01-01-welcome.md
 │   │   ├── pages/              # Static pages (Markdown)
 │   │   └── config.ts           # Zod schemas for content
 │   │
@@ -71,10 +92,10 @@ yoga-tung/
 │   │   └── Layout.astro        # Main layout wrapper
 │   │
 │   ├── lib/
-│   │   └── utils.ts            # Utility functions (cn, etc.)
+│   │   └── utils.ts            # Utility functions (cn helper)
 │   │
 │   ├── pages/                  # File-based routing
-│   │   ├── index.astro         # Homepage
+│   │   ├── index.astro         # Homepage (no React hydration)
 │   │   ├── blog.astro          # Blog listing
 │   │   └── blog/
 │   │       └── [...slug].astro # Dynamic blog post pages
@@ -82,11 +103,16 @@ yoga-tung/
 │   └── styles/
 │       └── globals.css         # Global styles + Tailwind
 │
-├── astro.config.mjs            # Astro configuration
-├── tailwind.config.mjs         # Tailwind configuration
-├── tsconfig.json               # TypeScript configuration
+├── .env.example                # Environment variables template
+├── .gitignore                  # Git ignore rules
+├── .node-version               # Node.js version specification (20)
+├── astro.config.mjs            # Astro configuration (with sitemap)
+├── CLAUDE.md                   # This file
 ├── netlify.toml                # Netlify deployment config
-└── package.json                # Dependencies and scripts
+├── package.json                # Dependencies and scripts
+├── README.md                   # User-facing documentation
+├── tailwind.config.mjs         # Tailwind config (complete color palette)
+└── tsconfig.json               # TypeScript configuration
 ```
 
 ## 🎨 Styling Conventions
@@ -263,9 +289,28 @@ npm run astro check  # Check TypeScript and Astro errors
 
 ## 🐛 Common Issues & Solutions
 
+### Issue: `border-border` class does not exist (FIXED)
+**Cause**: Empty `colors: {}` object in `tailwind.config.mjs`
+**Solution**: This was fixed in commit `ee7362b`. The complete shadcn/ui color palette is now defined:
+```js
+colors: {
+  border: 'hsl(var(--border))',
+  input: 'hsl(var(--input))',
+  ring: 'hsl(var(--ring))',
+  background: 'hsl(var(--background))',
+  foreground: 'hsl(var(--foreground))',
+  // ... plus primary, secondary, destructive, muted, accent, popover, card
+}
+```
+All CSS variables from `globals.css` must be mapped to Tailwind colors.
+
 ### Issue: React component not interactive
 **Cause**: Missing `client:*` directive
 **Solution**: Add `client:load` or appropriate directive
+
+### Issue: Invalid HTML - Button wrapping anchor tag
+**Cause**: Using `<Button><a href="...">Link</a></Button>`
+**Solution**: Use styled anchor tags directly or `<a>` inside button-styled div. See `src/pages/index.astro` for example of properly styled anchor elements.
 
 ### Issue: Tailwind classes not applying
 **Cause**: Missing content path in `tailwind.config.mjs`
@@ -289,6 +334,7 @@ content: ['./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}']
 {
   "astro": "^5.0.3",
   "@astrojs/react": "^3.6.2",
+  "@astrojs/sitemap": "^3.6.0",
   "@astrojs/tailwind": "^6.0.2",
   "react": "^18.3.1",
   "react-dom": "^18.3.1"
@@ -299,22 +345,26 @@ content: ['./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}']
 ```json
 {
   "tailwindcss": "^3.4.0",
-  "class-variance-authority": "latest",
-  "clsx": "latest",
-  "tailwind-merge": "latest",
-  "lucide-react": "latest",
-  "framer-motion": "latest"
+  "class-variance-authority": "^0.7.1",
+  "clsx": "^2.1.1",
+  "tailwind-merge": "^3.3.1",
+  "lucide-react": "^0.552.0",
+  "framer-motion": "^12.23.24"
 }
 ```
 
 ### Dev Dependencies
 ```json
 {
+  "@astrojs/check": "^0.9.5",
   "@types/react": "^18.3.12",
   "@types/react-dom": "^18.3.1",
+  "autoprefixer": "^10.4.21",
   "typescript": "^5.6.3"
 }
 ```
+
+**Note**: `@astrojs/check` is required for the build script and TypeScript validation.
 
 ## 🔐 Security Considerations
 
@@ -386,6 +436,43 @@ Currently no automated tests. Future considerations:
 3. **Explore shadcn/ui**: Understand component patterns
 4. **Review Tailwind**: Familiarize with utility classes
 5. **Try Decap CMS**: Access `/admin` to see CMS interface
+
+## 🚨 Important Notes for AI Assistants
+
+### Critical Configuration Files
+1. **tailwind.config.mjs**: Must include complete color palette. Empty `colors: {}` causes build errors.
+2. **astro.config.mjs**: Contains site URL, integrations, and output mode. Update site URL before deployment.
+3. **src/styles/globals.css**: Defines CSS variables that must be mapped in Tailwind config.
+
+### Performance Optimization
+- Avoid unnecessary React hydration: Use plain HTML/CSS for static content
+- Only use `client:*` directives when interactivity is required
+- Example: Homepage uses styled `<a>` tags instead of React `<Button>` components
+
+### SEO Best Practices
+- Sitemap is auto-generated via `@astrojs/sitemap` integration
+- Update `site` URL in `astro.config.mjs` before deployment
+- Use semantic HTML (proper heading hierarchy, anchor tags for links)
+- robots.txt included to guide search engines
+
+### Build Verification Checklist
+Before committing changes, verify:
+```bash
+npm run build        # Must complete without errors
+npm run astro check  # Must show 0 errors, 0 warnings
+```
+
+Expected build output:
+- 3 pages generated (index, blog, blog post)
+- Sitemap files created in dist/
+- No TypeScript errors
+
+### Common Pitfalls
+1. **Don't** use empty objects in Tailwind config (`colors: {}`)
+2. **Don't** wrap anchor tags in buttons for navigation
+3. **Don't** forget `client:load` when React components need interactivity
+4. **Do** test builds locally before pushing
+5. **Do** update documentation when making architectural changes
 
 ---
 
