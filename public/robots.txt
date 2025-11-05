@@ -1,0 +1,10 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow CMS admin
+User-agent: *
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://your-site-url.netlify.app/sitemap-index.xml
