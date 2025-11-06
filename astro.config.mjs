@@ -5,7 +5,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://your-site-url.netlify.app', // Update this with your actual domain
+  site: 'https://tungai12356-hue.github.io',
+  base: '/yoga-tung',
   integrations: [
     react(),
     tailwind({

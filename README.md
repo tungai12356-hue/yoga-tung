@@ -8,8 +8,12 @@ A modern personal website built with cutting-edge web technologies, designed to 
 ✅ **Type Safety**: 0 errors, 0 warnings
 ✅ **Production Ready**: Successfully builds and deploys
 ✅ **SEO Optimized**: Sitemap, robots.txt, and semantic HTML
+✅ **Live Demo**: Deployed to GitHub Pages
+
+**🌐 Live Website**: https://tungai12356-hue.github.io/yoga-tung/
 
 **Latest Updates** (2025-11-05):
+- ✨ Configured GitHub Pages deployment with automated CI/CD
 - Fixed critical Tailwind CSS configuration
 - Added sitemap generation for SEO
 - Optimized homepage bundle size
@@ -184,15 +188,47 @@ Template for environment variables:
 - Copy to `.env` for local development
 - Add your site URL and API keys as needed
 
-## 🚀 Deployment to Netlify
+## 🚀 Deployment
 
-### One-Click Deploy
+### GitHub Pages (Current Setup)
+
+This project is configured to automatically deploy to GitHub Pages.
+
+**Live URL**: https://tungai12356-hue.github.io/yoga-tung/
+
+#### Automatic Deployment
+
+The site automatically deploys when you push to the `main` branch:
+1. Merge your changes to the `main` branch
+2. GitHub Actions will automatically build and deploy
+3. Visit the URL above to see your live site
+
+#### First-Time Setup
+
+To enable GitHub Pages for the first time:
+1. Go to your repository on GitHub
+2. Click **Settings** → **Pages**
+3. Under **Source**, select **GitHub Actions**
+4. The workflow will run automatically on the next push to `main`
+
+#### Manual Deployment
+
+You can also trigger a deployment manually:
+1. Go to **Actions** tab in GitHub
+2. Select **Deploy to GitHub Pages** workflow
+3. Click **Run workflow** → **Run workflow**
+
+### Alternative: Deployment to Netlify
+
+If you prefer Netlify over GitHub Pages:
+
+#### One-Click Deploy
 
 Deploy directly to Netlify:
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start)
 
-### Manual Deployment
+#### Manual Netlify Deployment
 
 1. Push your code to GitHub
 2. Import your repository in Netlify
@@ -214,7 +250,9 @@ Deploy directly to Netlify:
 - ✅ **SEO optimized**: Sitemap generation, robots.txt, semantic HTML
 - ✅ **Performance optimized**: Minimal JavaScript, optimal bundle size
 - ✅ Fast static site generation with Astro
-- ✅ Netlify deployment ready
+- ✅ **GitHub Pages deployment**: Automated CI/CD with GitHub Actions
+- ✅ **Live website**: Accessible at https://tungai12356-hue.github.io/yoga-tung/
+- ✅ Netlify deployment ready (alternative option)
 - ✅ **Custom favicon**: Purple gradient "Y" branding
 - ✅ **Build verified**: Production builds tested and working
 
