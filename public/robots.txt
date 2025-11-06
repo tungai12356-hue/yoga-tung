@@ -1,0 +1,10 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow CMS admin
+User-agent: *
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://tungai12356-hue.github.io/yoga-tung/sitemap-index.xml
